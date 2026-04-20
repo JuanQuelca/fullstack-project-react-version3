@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Header from "./componentes/Header";
-
 import TaskInput from "./componentes/TaskInput";
 import TaskList from "./componentes/TaskList";
 import Footer from "./componentes/Footer";
@@ -8,6 +7,7 @@ import EmptyState from "./componentes/EmptyState";
 import "./index.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 export interface Task {
   id: number;
   text: string;
@@ -17,78 +17,114 @@ export interface Task {
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-const fetchTasks = async () => {
-  const res = await fetch(`${API_URL}/tasks`);
-  const data = await res.json();
-  setTasks(data);
-};
+  const fetchTasks = async () => {
+    try {
+      const res = await fetch(`${API_URL}/tasks`);
 
-  //conectrar con el backend
-useEffect(() => {
-  fetchTasks();
-}, []);
+      if (!res.ok) {
+        throw new Error("Error al obtener tareas");
+      }
 
-//********* */
- // agregar
+      const data: Task[] = await res.json();
+      setTasks(data);
+    } catch (error) {
+      console.error("Error en fetchTasks:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const addTask = async (text: string) => {
-    await fetch(`${API_URL}/tasks`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
 
-    fetchTasks();
+      if (!res.ok) {
+        throw new Error("Error al agregar tarea");
+      }
+
+      fetchTasks();
+    } catch (error) {
+      console.error("Error en addTask:", error);
+    }
   };
 
-  //  eliminar
   const deleteTask = async (id: number) => {
-    await fetch(`${API_URL}/tasks/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
+        method: "DELETE",
+      });
 
-    fetchTasks();
+      if (!res.ok) {
+        throw new Error("Error al eliminar tarea");
+      }
+
+      fetchTasks();
+    } catch (error) {
+      console.error("Error en deleteTask:", error);
+    }
   };
 
-  // toggle
   const toggleTask = async (id: number) => {
-    //const task = tasks.find((t: any) => t.id === id);
     const task = tasks.find((t) => t.id === id);
 
-    await fetch(`${API_URL}/tasks/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: task?.text,
-        completed: !task?.completed,
-      }),
-    });
+    if (!task) return;
 
-    fetchTasks();
+    try {
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: task.text,
+          completed: !task.completed,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al actualizar tarea");
+      }
+
+      fetchTasks();
+    } catch (error) {
+      console.error("Error en toggleTask:", error);
+    }
   };
 
-  // editar
   const editTask = async (id: number, newText: string) => {
-    const task = tasks.find((t: any) => t.id === id);
+    const task = tasks.find((t) => t.id === id);
 
-    await fetch(`${API_URL}/tasks/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: newText,
-        completed: task?.completed,
-      }),
-    });
+    if (!task) return;
 
-    fetchTasks();
+    try {
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: newText,
+          completed: task.completed,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al editar tarea");
+      }
+
+      fetchTasks();
+    } catch (error) {
+      console.error("Error en editTask:", error);
+    }
   };
-
-//******** */
 
   return (
     <div className="app">
