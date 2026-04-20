@@ -7,10 +7,18 @@ const prisma = new PrismaClient();
 //const PORT = 3000;
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+].filter(Boolean) as string[];
+
 //app.use(cors());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   })
 );
 app.use(express.json());
