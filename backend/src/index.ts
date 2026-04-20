@@ -1,9 +1,6 @@
-type Request = import("express").Request;
-type Response = import("express").Response;
-
-const express = require("express");
-const cors = require("cors");
-const { PrismaClient } = require("@prisma/client");
+import express, { Request, Response } from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
 const prisma = new PrismaClient();
