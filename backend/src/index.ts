@@ -10,7 +10,12 @@ const prisma = new PrismaClient();
 //const PORT = 3000;
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+//app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+);
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
