@@ -7,7 +7,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 const prisma = new PrismaClient();
-const PORT = 3000;
+//const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -43,22 +44,7 @@ app.delete("/tasks/:id", async (req: Request, res: Response) => {
   res.json({ message: "Deleted" });
 });
 
-/*
-app.put("/tasks/:id", async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id as string);
 
-  const task = await prisma.task.findUnique({
-    where: { id },
-  });
-
-  const updated = await prisma.task.update({
-    where: { id },
-    data: { completed: !task?.completed },
-  });
-
-  res.json(updated);
-});
-*/
 app.put("/tasks/:id", async (req: Request, res: Response) => {
   const id = parseInt(req.params.id as string);
   const { text, completed } = req.body;
