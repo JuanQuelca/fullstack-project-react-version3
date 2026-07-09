@@ -6,7 +6,7 @@ const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = [
+const allowedOrigins = 
   process.env.FRONTEND_URL,
   "https://fullstack-project-react-version3-1.onrender.com",
   "http://localhost:5173",
