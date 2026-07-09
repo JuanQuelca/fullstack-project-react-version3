@@ -1,3 +1,38 @@
+# TASK MANAGER
+ 
+La aplicación permitía:
+Agregar tareas.
+Marcar tareas como completadas.
+Eliminar tareas.
+Mostrar estadísticas de tareas completadas.
+Consumir una API REST (/tasks).
+<!-- BADGE_CI -->
+ 
+## 🚀 Instalación local
+ 
+```bash
+git clone https://github.com/JuanQuelca/fullstack-project-react-version3
+cd fullstack-project-react-version3
+
+```
+ 
+### Variables de entorno
+
+```
+DATABASE_URL="postgresql://taskmanager_mqlr_user:DTZYplGiXD6kYL1yIyY0TkGZeO6h7HKP@dpg-d7i6pfl7vvec73a89860-a.oregon-postgres.render.com/taskmanager_mqlr"
+PORT=3000
+```
+ 
+## 📜 Comandos disponibles
+ 
+| Comando          | Descripción                              |
+|------------------|-------------------------------------------|
+| `npm run dev`    | Levanta el entorno de desarrollo           |
+| `npm run build`  | Genera el build de producción              |
+| `npm test`       | Corre las pruebas automatizadas (pendiente — Sesión 3) |
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
