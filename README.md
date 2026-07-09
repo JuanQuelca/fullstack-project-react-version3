@@ -1,8 +1,8 @@
 # TASK MANAGER
  
-La aplicación permitía:
-Agregar tareas.
-Marcar tareas como completadas.
+La aplicación permite: 
+Agregar tareas, 
+Marcar tareas como completadas
 Eliminar tareas.
 Mostrar estadísticas de tareas completadas.
 Consumir una API REST (/tasks).
@@ -33,7 +33,7 @@ PORT=3000
 
 
 
-# React + Vite
+# React + Vite +
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
